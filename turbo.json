@@ -13,9 +13,13 @@
       ],
       "dependsOn": ["^build"]
     },
-    "@briefer/database#build": {
+    "@briefer/types#build": {
       "outputs": ["types/**", "dist/**"],
       "dependsOn": []
+    },
+    "@briefer/database#build": {
+      "outputs": ["types/**", "dist/**"],
+      "dependsOn": ["@briefer/types#build"]
     },
     "@briefer/editor#build": {
       "outputs": ["types/**", "dist/**"],
