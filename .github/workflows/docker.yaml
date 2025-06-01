@@ -46,7 +46,7 @@ jobs:
           push: true
           context: .
           file: docker/Dockerfile
-          tags: briefercloud/briefer:${{ github.ref_name }}
+          tags: murilopl/briefer:${{ github.ref_name }}
 
       - name: Build and push tag and release
         uses: depot/build-push-action@v1
@@ -57,7 +57,7 @@ jobs:
           push: true
           context: .
           file: docker/Dockerfile
-          tags: briefercloud/briefer:${{ github.ref_name }},briefercloud/briefer:latest
+          tags: murilopl/briefer:${{ github.ref_name }},murilopl/briefer:latest
 
   docker-multiple-images:
     runs-on: ubuntu-latest
@@ -109,7 +109,7 @@ jobs:
           push: true
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
-          tags: briefercloud/briefer-${{ matrix.name }}:${{ github.ref_name }}
+          tags: murilopl/briefer-${{ matrix.name }}:${{ github.ref_name }}
 
       - name: Build and push tag and release
         uses: depot/build-push-action@v1
@@ -120,4 +120,4 @@ jobs:
           push: true
           context: ${{ matrix.context }}
           file: ${{ matrix.dockerfile }}
-          tags: briefercloud/briefer-${{ matrix.name }}:${{ github.ref_name }},briefercloud/briefer-${{ matrix.name }}:latest
+          tags: murilopl/briefer-${{ matrix.name }}:${{ github.ref_name }},murilopl/briefer-${{ matrix.name }}:latest
