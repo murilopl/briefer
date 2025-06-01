@@ -18,10 +18,14 @@ import clsx from 'clsx'
 import { useCallback, useEffect } from 'react'
 import { ConnectDragPreview } from 'react-dnd'
 import ImageExtension from './ImageExtension'
+import { MarkdownPaste } from './Markdown'
+import { CustomTable, CustomTableRow, CustomTableHeader, CustomTableCell } from './TableExtension'
 
 import 'katex/dist/katex.min.css'
 import useEditorAwareness from '@/hooks/useEditorAwareness'
 import { DashboardMode } from '@/components/Dashboard'
+
+
 
 const useBlockEditor = ({
   content,
@@ -37,6 +41,7 @@ const useBlockEditor = ({
       autofocus: false,
       editable: isEditable,
       extensions: [
+        MarkdownPaste,
         TaskList,
         TaskItem.configure({
           nested: true,
@@ -88,6 +93,10 @@ const useBlockEditor = ({
         Youtube.configure({
           inline: true,
         }),
+        CustomTable,
+        CustomTableRow,
+        CustomTableHeader,
+        CustomTableCell,
       ],
       onUpdate({ editor }) {
         const content = editor.getJSON()?.content
@@ -192,10 +201,10 @@ const RichTextBlock = (props: Props) => {
         props.isEditable &&
         props.isCursorWithin &&
         !props.isCursorInserting
-      ? 'ring-1 ring-blue-400'
+      ? 'ring-0 ring-blue-400'
       : props.dashboardMode?._tag === 'editing' &&
         props.dashboardMode.position === 'expanded'
-      ? 'ring-1 ring-gray-200'
+      ? 'ring-0 ring-gray-200'
       : ''
 
   return (

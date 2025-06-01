@@ -133,7 +133,7 @@ body {
 }
 
 .python-html-output thead {
-  background-color: theme(colors.gray.50);
+  background-color: #f9fafb;
   position: sticky;
   top: 0;
 }
@@ -143,7 +143,7 @@ body {
   max-width: 250px;
   overflow: auto;
   padding: 0.3rem 0.5rem;
-  border: 1px solid theme(colors.gray.200);
+  border: 1px solid #e5e7eb;
   white-space: nowrap;
 }
 
@@ -358,4 +358,102 @@ div[data-block-type='DASHBOARD_HEADER'] > .react-resizable-handle-sw::after {
 div[data-block-type='DASHBOARD_HEADER'] > .react-resizable-handle-se::after {
   right: 6px !important;
   bottom: 14px !important;
+}
+
+/* Briefer Rich Text Editor Table Styles */
+.tiptap.briefer-editor-body .briefer-table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+  font-size: 0.8125rem; /* 13px */
+  border: 1px solid rgb(var(--tw-color-ceramic-200));
+  border-radius: 0.375rem;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.tiptap.briefer-editor-body .briefer-table-header {
+  background-color: rgb(var(--tw-color-ceramic-50));
+  font-weight: 600;
+  color: rgb(var(--tw-color-ceramic-800));
+  padding: 0.375rem 0.5rem; /* Reduced from 0.5rem 0.75rem */
+  border-bottom: 1px solid rgb(var(--tw-color-ceramic-200));
+  border-right: 1px solid rgb(var(--tw-color-ceramic-200));
+  text-align: left;
+  position: relative;
+  min-height: 2rem; /* Explicit minimum height */
+}
+
+.tiptap.briefer-editor-body .briefer-table-header p {
+  margin: 0.25rem 0 !important;
+}
+
+.tiptap.briefer-editor-body .briefer-table-header:last-child {
+  border-right: none;
+}
+
+.tiptap.briefer-editor-body .briefer-table-cell {
+  padding: 0.5rem; /* Reduced from 0.5rem 0.75rem */
+  border-bottom: 1px solid rgb(var(--tw-color-ceramic-100));
+  border-right: 1px solid rgb(var(--tw-color-ceramic-100));
+  color: rgb(var(--tw-color-ceramic-900));
+  position: relative;
+  min-height: 1.75rem; /* Explicit minimum height */
+  vertical-align: top;
+}
+
+.tiptap.briefer-editor-body .briefer-table-cell p {
+  margin: 0;
+}
+
+.tiptap.briefer-editor-body .briefer-table-cell:last-child {
+  border-right: none;
+}
+
+.briefer-table-row:hover {
+  background-color: rgb(var(--tw-color-primary-50)) !important;
+}
+
+/* Alternating row colors */
+.tiptap.briefer-editor-body .briefer-table .briefer-table-row:nth-child(even) .briefer-table-cell {
+  background-color: rgb(var(--tw-color-ceramic-50));
+}
+
+.tiptap.briefer-editor-body .briefer-table .briefer-table-row:nth-child(odd) .briefer-table-cell {
+  background-color: white;
+}
+
+/* Hover effects */
+.tiptap.briefer-editor-body .briefer-table .briefer-table-row:hover .briefer-table-cell {
+  background-color: rgb(var(--tw-color-primary-50)) !important;
+}
+
+/* Remove bottom border from last row */
+.tiptap.briefer-editor-body .briefer-table .briefer-table-row:last-child .briefer-table-cell {
+  border-bottom: none;
+}
+
+/* Selection styles */
+.tiptap.briefer-editor-body .briefer-table .briefer-table-cell.selectedCell,
+.tiptap.briefer-editor-body .briefer-table .briefer-table-header.selectedCell {
+  background-color: rgb(var(--tw-color-primary-100)) !important;
+  border: 2px solid rgb(var(--tw-color-primary-400)) !important;
+}
+
+/* Resize handle styling */
+.column-resize-handle {
+  position: absolute;
+  right: -2px;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  background-color: rgb(var(--tw-color-primary-400));
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+} 
+
+.tiptap {
+  outline: none !important;
 }

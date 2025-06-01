@@ -13,6 +13,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { SwatchIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { CheckIcon, LinkIcon } from '@heroicons/react/24/solid'
+import { TableCellsIcon } from '@heroicons/react/24/outline'
 
 type NodeType =
   | 'paragraph'
@@ -388,6 +389,126 @@ const AddLinkButton = (props: {
   )
 }
 
+const TableButton = (props: { editor: Editor }) => {
+  const [showTableForm, setShowTableForm] = useState(false)
+  const [rows, setRows] = useState(3)
+  const [cols, setCols] = useState(3)
+
+  const toggleShowTableForm = useCallback(() => {
+    setShowTableForm((prev) => !prev)
+  }, [])
+
+  const insertTable = useCallback(() => {
+    props.editor
+      .chain()
+      .focus()
+      .insertTable({ rows, cols, withHeaderRow: true })
+      .run()
+    setShowTableForm(false)
+  }, [props.editor, rows, cols])
+
+  const isInTable = props.editor.isActive('table')
+
+  useEffect(() => {
+    if (props.editor.view.state.selection.empty) {
+      setShowTableForm(false)
+    }
+  }, [props.editor.view.state.selection.empty])
+
+  if (isInTable) {
+    return (
+      <div className="flex gap-x-1">
+        <button
+          onClick={() => props.editor.chain().focus().addRowBefore().run()}
+          className="h-full text-xs px-2 hover:bg-gray-100 rounded-md"
+          title="Add row above"
+        >
+          +↑
+        </button>
+        <button
+          onClick={() => props.editor.chain().focus().addRowAfter().run()}
+          className="h-full text-xs px-2 hover:bg-gray-100 rounded-md"
+          title="Add row below"
+        >
+          +↓
+        </button>
+        <button
+          onClick={() => props.editor.chain().focus().addColumnBefore().run()}
+          className="h-full text-xs px-2 hover:bg-gray-100 rounded-md"
+          title="Add column left"
+        >
+          +←
+        </button>
+        <button
+          onClick={() => props.editor.chain().focus().addColumnAfter().run()}
+          className="h-full text-xs px-2 hover:bg-gray-100 rounded-md"
+          title="Add column right"
+        >
+          +→
+        </button>
+        <button
+          onClick={() => props.editor.chain().focus().deleteTable().run()}
+          className="h-full text-xs px-2 hover:bg-red-100 text-red-600 rounded-md"
+          title="Delete table"
+        >
+          ✕
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative h-full">
+      <button
+        onClick={toggleShowTableForm}
+        className="h-full text-sm px-2.5 hover:bg-gray-100 relative rounded-md group/toggle-button"
+        title="Insert table"
+      >
+        <TableCellsIcon className="h-4 w-4" />
+      </button>
+      
+      <div className="font-sans pointer-events-none absolute -top-2 left-1/2 -translate-y-full -translate-x-1/2 w-max opacity-0 transition-opacity group-hover/toggle-button:opacity-100 bg-hunter-950 text-white text-xs p-2 rounded-md shadow-lg">
+        <span>Insert Table</span>
+      </div>
+
+      {showTableForm && (
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+8px)] bg-white p-3 ring-1 ring-inset ring-gray-300 rounded-md shadow-md">
+          <div className="flex flex-col gap-y-2 text-xs">
+            <div className="flex items-center gap-x-2">
+              <label>Rows:</label>
+              <input
+                type="number"
+                min="1"
+                max="10"
+                value={rows}
+                onChange={(e) => setRows(parseInt(e.target.value) || 1)}
+                className="w-12 px-1 py-0.5 border border-gray-200 rounded text-center"
+              />
+            </div>
+            <div className="flex items-center gap-x-2">
+              <label>Cols:</label>
+              <input
+                type="number"
+                min="1"
+                max="10"
+                value={cols}
+                onChange={(e) => setCols(parseInt(e.target.value) || 1)}
+                className="w-12 px-1 py-0.5 border border-gray-200 rounded text-center"
+              />
+            </div>
+            <button
+              onClick={insertTable}
+              className="bg-primary-100 hover:bg-primary-200 px-3 py-1 ring-1 ring-primary-400 rounded-sm text-xs font-medium"
+            >
+              Insert Table
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 const FormattingToolbar = ({ editor }: { editor: Editor }) => {
   return (
     <BubbleMenu
@@ -395,6 +516,7 @@ const FormattingToolbar = ({ editor }: { editor: Editor }) => {
       tippyOptions={{
         hideOnClick: true,
         placement: 'top-start',
+        maxWidth: '100%',
         popperOptions: {
           strategy: 'fixed',
           modifiers: [
@@ -469,6 +591,10 @@ const FormattingToolbar = ({ editor }: { editor: Editor }) => {
         >
           <LinkIcon className="h-4 w-4" />
         </AddLinkButton>
+      </div>
+
+      <div className="flex gap-x-1 items-center justify-center px-1">
+        <TableButton editor={editor} />
       </div>
     </BubbleMenu>
   )
