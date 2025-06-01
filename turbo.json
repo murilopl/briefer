@@ -13,6 +13,18 @@
       ],
       "dependsOn": ["^build"]
     },
+    "@briefer/database#build": {
+      "outputs": ["types/**", "dist/**"],
+      "dependsOn": []
+    },
+    "@briefer/editor#build": {
+      "outputs": ["types/**", "dist/**"],
+      "dependsOn": ["@briefer/database#build"]
+    },
+    "@briefer/api#build": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["@briefer/database#build", "@briefer/editor#build"]
+    },
     "test": {
       "outputs": ["coverage/**"],
       "dependsOn": []
