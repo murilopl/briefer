@@ -41,7 +41,7 @@ jobs:
         uses: depot/build-push-action@v1
         if: env.is_release_version == 'false'
         with:
-          project: 6zxrst4dlr
+          project: k0kkx8bqh9
           platforms: linux/amd64,linux/arm64
           push: true
           context: .
@@ -52,7 +52,7 @@ jobs:
         uses: depot/build-push-action@v1
         if: env.is_release_version == 'true'
         with:
-          project: 6zxrst4dlr
+          project: k0kkx8bqh9
           platforms: linux/amd64,linux/arm64
           push: true
           context: .
@@ -104,7 +104,7 @@ jobs:
         uses: depot/build-push-action@v1
         if: env.is_release_version == 'false'
         with:
-          project: 6zxrst4dlr
+          project: k0kkx8bqh9
           platforms: linux/amd64,linux/arm64
           push: true
           context: ${{ matrix.context }}
@@ -115,7 +115,7 @@ jobs:
         uses: depot/build-push-action@v1
         if: env.is_release_version == 'true'
         with:
-          project: 6zxrst4dlr
+          project: k0kkx8bqh9
           platforms: linux/amd64,linux/arm64
           push: true
           context: ${{ matrix.context }}
